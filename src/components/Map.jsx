@@ -32,7 +32,7 @@ export default function Map({ directions, routeInfo }) {
       </GoogleMap>
       {routeInfo?.duration && (
         <p className="route-info">
-          Time: {routeInfo.duration} | Distance: {routeInfo.distance}
+            Time: {routeInfo.duration} | Distance: {routeInfo.distance}
         </p>
       )}
     </div>

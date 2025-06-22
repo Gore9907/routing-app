@@ -4,6 +4,7 @@ import WaypointList from './components/WaypointList';
 import RouteOptions from './components/RouteOptions';
 import Map from './components/Map';
 import StartEndInput from './components/StartEndInput';
+import NavigationButton from './components/NavigationButton';
 
 function App() {
   const [waypoints, setWaypoints] = useState([]);
@@ -12,7 +13,7 @@ function App() {
   const [routeInfo, setRouteInfo] = useState({ duration: '', distance: '' });
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
-
+  const [optimisedWaypoints, setOptimisedWaypoints] = useState([]);
   const addWaypoint = (address) => {
     setWaypoints((prev) => [...prev, address]);
   };
@@ -20,6 +21,18 @@ function App() {
   const removeWaypoint = (index) => {
     setWaypoints((prev) => prev.filter((_, i) => i !== index));
   };
+
+  const toMaps = () => {
+    const base = "https://www.google.com/maps/dir/?api=1";
+    const origin = `&origin=${encodeURIComponent(startLocation)}`;
+    const destination = `&destination=${encodeURIComponent(endLocation)}`;
+    const wp = optimisedWaypoints.length
+      ? `&waypoints=${optimisedWaypoints.map(encodeURIComponent).join('|')}`
+      : "";
+
+    const link = `${base}${origin}${destination}${wp}`;
+    window.open(link, '_blank');
+  }
 
   const optimizeRoute = async () => {
     if (startLocation === "" || endLocation === "") return alert('Need start and end point.');
@@ -33,6 +46,10 @@ function App() {
       travelMode,
     });
     setDirections(result);
+    const route = result.routes[0];
+    const optimizedWaypointOrder = route.waypoint_order;
+    const orderedWaypoints = optimizedWaypointOrder.map(index => waypoints[index]);
+    setOptimisedWaypoints(orderedWaypoints);
     const legs = result.routes[0].legs;
     const duration = legs.reduce((sum, leg) => sum + leg.duration.value, 0);
     const distance = legs.reduce((sum, leg) => sum + leg.distance.value, 0);
@@ -40,6 +57,7 @@ function App() {
       duration: `${Math.round(duration / 60)} mins`,
       distance: `${(distance / 1000).toFixed(1)} km`,
     });
+
   };
 
   return (
@@ -57,6 +75,7 @@ function App() {
         onOptimize={optimizeRoute}
       />
       <Map directions={directions} routeInfo={routeInfo} />
+      {directions && <NavigationButton onNavigate={toMaps} />}
     </div>
   );
 }
