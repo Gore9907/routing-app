@@ -1,12 +1,30 @@
-# React + Vite
+# 🗺️ Route Optimizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based routing application that helps users optimize travel routes by calculating the most efficient path between multiple waypoints using the Google Maps Directions API. Built with React, Vite, and the Google Maps JavaScript SDK.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 📍 Autocomplete input for Start, End, and Waypoints
+- 🔁 Optimized route calculation
+- 🗺️ Interactive Google Map display
+- 🧠 Debounced address search to reduce API calls
+- ➕ Add/remove waypoints dynamically
+- 📦 Built with Vite + React + Google Maps API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📸 Demo
+
+![screenshot](./screenshot.png)
+
+---
+
+## 🧰 Tech Stack
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/overview)
+- [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
+- [Lodash.debounce](https://lodash.com/docs/4.17.15#debounce)
