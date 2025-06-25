@@ -1,13 +1,14 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
 import debounce from 'lodash.debounce'; // install with `npm install lodash.debounce`
 
-export default function AddressInput({ onPlaceSelected }) {
+export default function AddressInput({ onPlaceSelected , isStartEnd}) {
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const autocompleteServiceRef = useRef(null);
   const sessionTokenRef = useRef(null);
+  const justSelectedRef = useRef(false);
+  const inputRef = useRef(null);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -39,14 +40,20 @@ export default function AddressInput({ onPlaceSelected }) {
   ).current;
 
   useEffect(() => {
+    if (justSelectedRef.current) {
+      justSelectedRef.current = false;
+      return;
+    }
     fetchSuggestions(input);
   }, [input]);
 
   const handleSelect = (suggestion) => {
+    justSelectedRef.current = true;
     onPlaceSelected(suggestion.description);
+    setInput(isStartEnd ? suggestion.description : "");
     setSuggestions([]);
-    setInput("");
     sessionTokenRef.current = new google.maps.places.AutocompleteSessionToken();
+    inputRef.current?.blur();
   };
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -54,6 +61,7 @@ export default function AddressInput({ onPlaceSelected }) {
   return (
     <div className="autocomplete-container">
       <input
+        ref={inputRef}
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}

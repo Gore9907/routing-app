@@ -67,7 +67,8 @@ function App() {
       onStartChange={(start) => setStartLocation(start)}
       onEndChange={(end) => setEndLocation(end)}
       />
-      <AddressInput onPlaceSelected={addWaypoint} />
+      <label className='way-point-label'><strong>Add Waypoints:</strong></label>
+      <AddressInput onPlaceSelected={addWaypoint} isStartEnd={false}/>
       <WaypointList waypoints={waypoints} removeWaypoint={removeWaypoint} />
       <RouteOptions
         travelMode={travelMode}

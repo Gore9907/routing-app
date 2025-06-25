@@ -18,15 +18,11 @@ export default function StartEndInput({ onStartChange, onEndChange }) {
   return (
     <div className="start-end-container">
       <label><strong>Start Location:</strong></label>
-      <AddressInput onPlaceSelected={handleStartSelect} />
+      <AddressInput onPlaceSelected={handleStartSelect} isStartEnd={true} />
 
       <label><strong>End Location:</strong></label>
-      <AddressInput onPlaceSelected={handleEndSelect} />
-
-      <div className="selected-values">
-        <p><strong>Start:</strong> {start}</p>
-        <p><strong>End:</strong> {end}</p>
-      </div>
+      <AddressInput onPlaceSelected={handleEndSelect} isStartEnd={true}/>
+      
     </div>
   );
 }
