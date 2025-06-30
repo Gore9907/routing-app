@@ -17,11 +17,6 @@ export default function Map({ directions, routeInfo }) {
     libraries: ['places'],
   });
 
-  console.log("Map component loaded");
-  console.log("API key:", import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
-  console.log("isLoaded:", isLoaded);
-  console.log("loadError:", loadError);
-
   if (loadError) return <div>Map load error: {loadError.message}</div>;
   if (!isLoaded) return <div>Loading Map...</div>;
 

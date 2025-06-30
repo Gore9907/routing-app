@@ -38,10 +38,9 @@ function App() {
     if (startLocation === "" || endLocation === "") return alert('Need start and end point.');
     const service = new window.google.maps.DirectionsService();
     const result = await service.route({
-      origin: startLocation,//waypoints[0],
-      destination: endLocation,//waypoints[waypoints.length - 1],
+      origin: startLocation,
+      destination: endLocation,
       waypoints: waypoints.map(loc => ({ location: loc, stopover: true })),
-      //waypoints.slice(1, -1).map(loc => ({ location: loc, stopover: true })),
       optimizeWaypoints: true,
       travelMode,
     });
