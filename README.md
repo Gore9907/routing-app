@@ -1,6 +1,6 @@
 # 🗺️ Route Optimizer
 
-A web-based routing application that helps users optimize travel routes by calculating the most efficient path between multiple waypoints using the Google Maps Directions API. Built with React, Vite, and the Google Maps JavaScript SDK.
+A web-based routing application that helps users optimize travel routes by calculating the most efficient path between multiple waypoints using the Google Maps Directions API. Built with React, Vite, and the Google Maps JavaScript SDK and Firebase Authentication and FireStore.
 
 ---
 
@@ -12,6 +12,8 @@ A web-based routing application that helps users optimize travel routes by calcu
 - 🧠 Debounced address search to reduce API calls
 - ➕ Add/remove waypoints dynamically
 - 📦 Built with Vite + React + Google Maps API
+- 🔐 Authentication with Firebase: Supports email/password login, and guest (anonymous) login so users can try the app without creating an account.
+- 🗃️ Cloud Firestore Database: Saves each logged-in user’s past optimized routes in their private history collection, allowing them to view their 20 most recent routes anytime.
 
 ---
 
@@ -28,3 +30,4 @@ A web-based routing application that helps users optimize travel routes by calcu
 - [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/overview)
 - [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
 - [Lodash.debounce](https://lodash.com/docs/4.17.15#debounce)
+- [Firebase](https://firebase.google.com/)
