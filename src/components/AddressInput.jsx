@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-import debounce from 'lodash.debounce'; // install with `npm install lodash.debounce`
+import debounce from 'lodash.debounce';
 
 export default function AddressInput({ onPlaceSelected , isStartEnd}) {
   const [input, setInput] = useState('');

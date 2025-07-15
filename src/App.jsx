@@ -1,85 +1,29 @@
-import React, { useState } from 'react';
-import AddressInput from './components/AddressInput';
-import WaypointList from './components/WaypointList';
-import RouteOptions from './components/RouteOptions';
-import Map from './components/Map';
-import StartEndInput from './components/StartEndInput';
-import NavigationButton from './components/NavigationButton';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import OptimizerPage from './components/OptimizerPage';
+import LoginPage from './components/LoginPage';
+import HistoryPage from './components/HistoryPage';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
+import React from 'react';
 
 function App() {
-  const [waypoints, setWaypoints] = useState([]);
-  const [directions, setDirections] = useState(null);
-  const [travelMode, setTravelMode] = useState('DRIVING');
-  const [routeInfo, setRouteInfo] = useState({ duration: '', distance: '' });
-  const [startLocation, setStartLocation] = useState("");
-  const [endLocation, setEndLocation] = useState("");
-  const [optimisedWaypoints, setOptimisedWaypoints] = useState([]);
-  const addWaypoint = (address) => {
-    setWaypoints((prev) => [...prev, address]);
-  };
-
-  const removeWaypoint = (index) => {
-    setWaypoints((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const toMaps = () => {
-    const base = "https://www.google.com/maps/dir/?api=1";
-    const origin = `&origin=${encodeURIComponent(startLocation)}`;
-    const destination = `&destination=${encodeURIComponent(endLocation)}`;
-    const wp = optimisedWaypoints.length
-      ? `&waypoints=${optimisedWaypoints.map(encodeURIComponent).join('|')}`
-      : "";
-
-    const link = `${base}${origin}${destination}${wp}`;
-    window.open(link, '_blank');
-  }
-
-  const optimizeRoute = async () => {
-    if (startLocation === "" || endLocation === "") return alert('Need start and end point.');
-    const service = new window.google.maps.DirectionsService();
-    const result = await service.route({
-      origin: startLocation,
-      destination: endLocation,
-      waypoints: waypoints.map(loc => ({ location: loc, stopover: true })),
-      optimizeWaypoints: true,
-      travelMode,
-    });
-    setDirections(result);
-    const route = result.routes[0];
-    const optimizedWaypointOrder = route.waypoint_order;
-    const orderedWaypoints = optimizedWaypointOrder.map(index => waypoints[index]);
-    setOptimisedWaypoints(orderedWaypoints);
-    const legs = result.routes[0].legs;
-    const duration = legs.reduce((sum, leg) => sum + leg.duration.value, 0);
-    const distance = legs.reduce((sum, leg) => sum + leg.distance.value, 0);
-    setRouteInfo({
-      duration: `${Math.round(duration / 60)} mins`,
-      distance: `${(distance / 1000).toFixed(1)} km`,
-    });
-
-  };
+  const { user } = useContext(AuthContext);
 
   return (
-    <div className="app-container">
-      <h1>Route Optimizer</h1>
-      <StartEndInput
-      onStartChange={(start) => setStartLocation(start)}
-      onEndChange={(end) => setEndLocation(end)}
-      />
-      <label className='way-point-label'><strong>Add Waypoints:</strong></label>
-      <AddressInput onPlaceSelected={addWaypoint} isStartEnd={false}/>
-      <WaypointList waypoints={waypoints} removeWaypoint={removeWaypoint} />
-      <RouteOptions
-        travelMode={travelMode}
-        setTravelMode={setTravelMode}
-        onOptimize={optimizeRoute}
-      />
-      <Map directions={directions} routeInfo={routeInfo} />
-      {directions && <NavigationButton onNavigate={toMaps} />}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+            !user ? <Navigate to="/login" /> : <OptimizerPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/history"
+          element={
+            user && !user.isAnonymous ? <HistoryPage /> : <Navigate to="/login" />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
-
