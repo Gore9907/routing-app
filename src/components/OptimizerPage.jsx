@@ -27,9 +27,6 @@ function OptimizerPage() {
   const to_history = () =>{
     navigate("/history")
   }
-  const to_login = () =>{
-    navigate('/login')
-  }
 
   const addWaypoint = (address) => {
     setWaypoints((prev) => [...prev, address]);
@@ -95,7 +92,7 @@ function OptimizerPage() {
       <nav className='nav-bar'>
         {user && !user.isAnonymous ?<><button className = 'nav-button'onClick={to_history}>History</button>
         <button className = 'nav-button' onClick={async() =>{logout()}}>Logout</button></>: <></>}
-        {user && user.isAnonymous && <button className='nav-button' onClick={to_login}>Register or Login</button>}
+        {user && user.isAnonymous && <button className='nav-button' onClick={async() =>{logout()}}>Signup or Login</button>}
       </nav>
       <StartEndInput
       onStartChange={(start) => setStartLocation(start)}

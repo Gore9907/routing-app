@@ -149,3 +149,8 @@ button:hover{
   border-radius: 3px;
   padding: 5px;
 }
+
+.login-photo{
+  width: 75%;
+
+}

@@ -86,6 +86,7 @@ function LoginPage() {
 
   return (
     <div style={{ maxWidth: 500, margin : '0 auto', padding: '30px', textAlign: "center" , fontSize: '22px'}}>
+      <img className='login-photo' src="mapPhoto.jpg" alt="MapPhoto"/>
       <h2>Login / Signup</h2>
 
       <input
