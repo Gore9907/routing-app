@@ -6,14 +6,14 @@ A web-based routing application that helps users optimize travel routes by calcu
 
 ## 🚀 Features
 
-- 📍 Autocomplete input for Start, End, and Waypoints
-- 🔁 Optimized route calculation
-- 🗺️ Interactive Google Map display
-- 🧠 Debounced address search to reduce API calls
-- ➕ Add/remove waypoints dynamically
-- 📦 Built with Vite + React + Google Maps API
-- 🔐 Authentication with Firebase: Supports email/password login, and guest (anonymous) login so users can try the app without creating an account.
-- 🗃️ Cloud Firestore Database: Saves each logged-in user’s past optimized routes in their private history collection, allowing them to view their 10 most recent routes anytime.
+- Autocomplete input for Start, End, and Waypoints
+- Optimized route calculation
+- Interactive Google Map display
+- Debounced address search to reduce API calls
+- Add/remove waypoints dynamically
+- Built with Vite + React + Google Maps API
+- Authentication with Firebase: Supports email/password login, and guest (anonymous) login so users can try the app without creating an account.
+- Cloud Firestore Database: Saves each logged-in user’s past optimized routes in their private history collection, allowing them to view their 10 most recent routes anytime.
 
 ---
 
