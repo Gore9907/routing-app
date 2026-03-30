@@ -17,12 +17,15 @@ export default function StartEndInput({ onStartChange, onEndChange }) {
 
   return (
     <div className="start-end-container">
-      <label><strong>Start Location:</strong></label>
-      <AddressInput onPlaceSelected={handleStartSelect} isStartEnd={true} />
+      <div className="input-group">
+        <label className="input-label">Start Location</label>
+        <AddressInput onPlaceSelected={handleStartSelect} isStartEnd={true} />
+      </div>
 
-      <label><strong>End Location:</strong></label>
-      <AddressInput onPlaceSelected={handleEndSelect} isStartEnd={true}/>
-      
+      <div className="input-group">
+        <label className="input-label">End Location</label>
+        <AddressInput onPlaceSelected={handleEndSelect} isStartEnd={true} />
+      </div>
     </div>
   );
 }

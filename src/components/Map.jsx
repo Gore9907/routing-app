@@ -22,13 +22,22 @@ export default function Map({ directions, routeInfo }) {
 
   return (
     <div className="map-container">
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-        {directions && <DirectionsRenderer directions={directions} />}
-      </GoogleMap>
+      <div className="map-wrapper">
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+          {directions && <DirectionsRenderer directions={directions} />}
+        </GoogleMap>
+      </div>
       {routeInfo?.duration && (
-        <p className="route-info">
-            Time: {routeInfo.duration} | Distance: {routeInfo.distance}
-        </p>
+        <div className="route-info-bar">
+          <div className="route-stat">
+            <span className="route-stat-label">Duration</span>
+            <span className="route-stat-value">{routeInfo.duration}</span>
+          </div>
+          <div className="route-stat">
+            <span className="route-stat-label">Distance</span>
+            <span className="route-stat-value">{routeInfo.distance}</span>
+          </div>
+        </div>
       )}
     </div>
   );

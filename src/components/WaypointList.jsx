@@ -5,8 +5,11 @@ export default function WaypointList({ waypoints, removeWaypoint }) {
     <ul className="waypoint-list">
       {waypoints.map((place, index) => (
         <li key={index} className="waypoint-item">
-          <span>{place}</span>
-          <button className='remove-button' onClick={() => removeWaypoint(index)}>Remove</button>
+          <div className="waypoint-info">
+            <span className="waypoint-number">{index + 1}</span>
+            <span className="waypoint-address">{place}</span>
+          </div>
+          <button className="btn btn-danger" onClick={() => removeWaypoint(index)}>Remove</button>
         </li>
       ))}
     </ul>

@@ -1,15 +1,29 @@
 import React from 'react';
 
 export default function RouteOptions({ travelMode, setTravelMode, onOptimize }) {
+  const modes = [
+    { value: 'DRIVING', icon: '🚗', label: 'Drive' },
+    { value: 'WALKING', icon: '🚶', label: 'Walk' },
+    { value: 'BICYCLING', icon: '🚲', label: 'Bike' },
+    { value: 'TRANSIT', icon: '🚆', label: 'Transit' },
+  ];
+
   return (
-    <div style={{ margin: '10px 0'}}>
-      <select className='select-menu' value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
-        <option value="DRIVING">Driving</option>
-        <option value="WALKING">Walking</option>
-        <option value="BICYCLING">Bicycling</option>
-        <option value="TRANSIT">Transit</option>
-      </select>
-      <button onClick={onOptimize} style={{ marginLeft: '10px' }}>Optimize Route</button>
+    <div className="route-options">
+      <div className="travel-mode-group">
+        {modes.map((mode) => (
+          <button
+            key={mode.value}
+            className={`travel-mode-btn${travelMode === mode.value ? ' active' : ''}`}
+            onClick={() => setTravelMode(mode.value)}
+            type="button"
+          >
+            <span className="travel-mode-icon">{mode.icon}</span>
+            <span className="travel-mode-label">{mode.label}</span>
+          </button>
+        ))}
+      </div>
+      <button className="btn btn-primary btn-lg" onClick={onOptimize}>Optimize Route</button>
     </div>
   );
 }

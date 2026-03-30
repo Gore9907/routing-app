@@ -1,6 +1,5 @@
 import React, { useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import HistoryPage from './HistoryPage';
 import AddressInput from './AddressInput';
 import WaypointList from './WaypointList';
 import RouteOptions from './RouteOptions';
@@ -11,7 +10,6 @@ import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import LoginPage from './LoginPage';
 
 
 function OptimizerPage() {
@@ -88,24 +86,44 @@ function OptimizerPage() {
   }
   return (
     <div className="app-container">
-      <h1>Route Optimizer</h1>
-      <nav className='nav-bar'>
-        {user && !user.isAnonymous ?<><button className = 'nav-button'onClick={to_history}>History</button>
-        <button className = 'nav-button' onClick={async() =>{logout()}}>Logout</button></>: <></>}
-        {user && user.isAnonymous && <button className='nav-button' onClick={async() =>{logout()}}>Signup or Login</button>}
-      </nav>
-      <StartEndInput
-      onStartChange={(start) => setStartLocation(start)}
-      onEndChange={(end) => setEndLocation(end)}
-      />
-      <label className='way-point-label'><strong>Add Waypoints:</strong></label>
-      <AddressInput onPlaceSelected={addWaypoint} isStartEnd={false}/>
-      <WaypointList waypoints={waypoints} removeWaypoint={removeWaypoint} />
-      <RouteOptions
-        travelMode={travelMode}
-        setTravelMode={setTravelMode}
-        onOptimize={optimizeRoute}
-      />
+      <header className="page-header">
+        <div>
+          <h1 className="page-title">Route Optimizer</h1>
+        </div>
+        <nav className="nav-bar">
+          {user && !user.isAnonymous ? (
+            <>
+              <button className="btn btn-secondary" onClick={to_history}>History</button>
+              <button className="btn btn-ghost" onClick={async () => { logout() }}>Logout</button>
+            </>
+          ) : null}
+          {user && user.isAnonymous && (
+            <button className="btn btn-primary" onClick={async () => { logout() }}>Sign Up / Log In</button>
+          )}
+        </nav>
+      </header>
+
+      <section className="section card">
+        <StartEndInput
+          onStartChange={(start) => setStartLocation(start)}
+          onEndChange={(end) => setEndLocation(end)}
+        />
+      </section>
+
+      <section className="section">
+        <label className="section-label">Waypoints</label>
+        <AddressInput onPlaceSelected={addWaypoint} isStartEnd={false} />
+        <WaypointList waypoints={waypoints} removeWaypoint={removeWaypoint} />
+      </section>
+
+      <section className="section">
+        <RouteOptions
+          travelMode={travelMode}
+          setTravelMode={setTravelMode}
+          onOptimize={optimizeRoute}
+        />
+      </section>
+
       <Map directions={directions} routeInfo={routeInfo} />
       {directions && <NavigationButton onNavigate={toMaps} />}
     </div>
@@ -113,5 +131,3 @@ function OptimizerPage() {
 }
 
 export default OptimizerPage;
-
-
